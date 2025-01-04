@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="tr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Gelişmiş Todo Uygulaması</title>
+    <link rel="stylesheet" href="style.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css"
+    />
+  </head>
+  <body>
+    <div class="container">
+      <h1>Todo Listesi</h1>
+      <!-- Pomodoro Timer -->
+      <div class="pomodoro-container">
+        <div class="timer">
+          <span id="minutes">25</span>:<span id="seconds">00</span>
+        </div>
+        <div class="timer-controls">
+          <button id="startTimer" onclick="startPomodoro()">Başlat</button>
+          <button id="pauseTimer" onclick="pausePomodoro()" disabled>
+            Duraklat
+          </button>
+          <button id="resetTimer" onclick="resetPomodoro()">Sıfırla</button>
+        </div>
+        <div class="timer-mode">
+          <button onclick="setTimerMode('pomodoro')" class="active">
+            Çalışma (25dk)
+          </button>
+          <button onclick="setTimerMode('shortBreak')">Kısa Mola (5dk)</button>
+          <button onclick="setTimerMode('longBreak')">Uzun Mola (15dk)</button>
+        </div>
+      </div>
+
+      <div class="stats-bar">
+        <div class="stat">
+          <span id="totalTasks">0</span>
+          <label>Toplam</label>
+        </div>
+        <div class="stat">
+          <span id="completedTasks">0</span>
+          <label>Tamamlanan</label>
+        </div>
+        <div class="stat">
+          <span id="pendingTasks">0</span>
+          <label>Bekleyen</label>
+        </div>
+      </div>
+
+      <div class="input-container">
+        <select id="categorySelect">
+          <option value="genel">Genel</option>
+          <option value="iş">İş</option>
+          <option value="kişisel">Kişisel</option>
+          <option value="alışveriş">Alışveriş</option>
+        </select>
+        <input
+          type="text"
+          id="todoInput"
+          placeholder="Yapılacak görevi yazın..."
+        />
+        <input type="text" id="dueDate" placeholder="Tarih seç" />
+        <select id="priority">
+          <option value="düşük">Düşük</option>
+          <option value="orta">Orta</option>
+          <option value="yüksek">Yüksek</option>
+        </select>
+        <input type="text" id="tags" placeholder="Etiketler (#ile ayırın)" />
+        <button onclick="addTodo()">Ekle</button>
+      </div>
+
+      <div class="search-container">
+        <input
+          type="text"
+          id="searchInput"
+          placeholder="Görevlerde ara..."
+          oninput="searchTodos()"
+        />
+        <select id="sortSelect" onchange="sortTodos()">
+          <option value="date">Tarihe Göre</option>
+          <option value="priority">Önceliğe Göre</option>
+          <option value="alpha">Alfabetik</option>
+        </select>
+      </div>
+
+      <div class="filter-container">
+        <button onclick="filterTodos('all')" class="filter-btn active">
+          Hepsi
+        </button>
+        <button onclick="filterTodos('active')" class="filter-btn">
+          Aktif
+        </button>
+        <button onclick="filterTodos('completed')" class="filter-btn">
+          Tamamlanan
+        </button>
+      </div>
+
+      <ul id="todoList"></ul>
+    </div>
+
+    <div class="theme-switcher">
+      <button onclick="toggleTheme()">🌓</button>
+    </div>
+
+    <div id="statsModal" class="modal">
+      <div class="modal-content">
+        <span class="close">&times;</span>
+        <h2>İstatistikler</h2>
+        <div id="statsChart"></div>
+      </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="script.js"></script>
+  </body>
+</html>
